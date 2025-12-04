@@ -57,86 +57,35 @@ import java.util.List;
  * // BankTransaction{type='deposit', amount=150.0}
  * // SystemError{message='Timeout', code=504}
  *
- * Registre d'esdeveniments en una plataforma digital
- * --------------------------------------------------
- * Una empresa tecnològica vol construir un sistema intern de registre d'esdeveniments
- * que permeti monitoritzar el comportament de la seva plataforma en línia.
- *
- * La plataforma ha de registrar diferents tipus d'esdeveniments:
- * - Quan un usuari es connecta o desconnecta.
- * - Quan es realitza una operació bancària.
- * - Quan ocorre un error del sistema.
- *
- * Es proporciona una classe genèrica anomenada EventLogger<T>, que pot ser instanciada 
- * per registrar esdeveniments de qualsevol tipus. Tot i això, cada instància emmagatzemarà únicament 
- * esdeveniments d'un tipus específic. 
- * Per exemple, una instància d'EventLogger<UserLogin> emmagatzemarà exclusivament objectes de tipus 
- * UserLogin, mentre que una instància de EventLogger<SystemError> contindrà només esdeveniments del tipus SystemError. 
- * Això permet reutilitzar la mateixa estructura de registre (EventLogger) per a diferents tipus d'esdeveniments, 
- * sense barrejar tipus dins d'una mateixa instància. Aquesta classe ha de permetre:
- *
- * - Registrar un esdeveniment.
- * - Obtenir l'últim esdeveniment registrat.
- * - Llistar tots els esdeveniments emmagatzemats.
- *
- * Classes d'esdeveniment ja definides com a classes internes:
- * - UserLogin: conté nom d'usuari i hora (String).
- * - BankTransaction: conté tipus (String: ingrés o reintegrament) i quantitat (double).
- * - SystemError: conté missatge d'error (String) i codi (int).
- *
- * MÈTODES A IMPLEMENTAR:
- * -----------------------
- * - void logEvent(T event)
- *   Afegeix un nou esdeveniment a la llista.
- *
- * - T getLastEvent()
- *   Retorna l'últim esdeveniment afegit. Si la llista està buida, retorna null.
- *
- * - List<T> getAllEvents()
- *   Retorna una llista amb tots els esdeveniments registrats, en ordre d'inserció.
- *
- * EXEMPLE:
- * --------
- * EventLogger<UserLogin> loginLogger = new EventLogger<>();
- * loginLogger.logEvent(new UserLogin("maria", "08:00"));
- *
- * EventLogger<BankTransaction> txLogger = new EventLogger<>();
- * txLogger.logEvent(new BankTransaction("deposit", 150.0));
- *
- * EventLogger<SystemError> errorLogger = new EventLogger<>();
- * errorLogger.logEvent(new SystemError("Timeout", 504));
- *
- * // Sortida esperada:
- * // UserLogin{username='maria', time='08:00'}
- * // BankTransaction{type='deposit', amount=150.0}
- * // SystemError{message='Timeout', code=504}
  */
 
 public class EventLogger<T> {
 
     // TODO: Declare a list to store events
-    // private List<T> events;
+    private List<T> events;
 
     // TODO: Initialize the list in the constructor
     public EventLogger() {
-        // this.events = ...
+        this.events = new ArrayList<>();
     }
 
     // TODO: Add a new event to the list
     public void logEvent(T event) {
-        // ...
+        this.events.add(event);
     }
 
     // TODO: Return the last event or null if empty
     public T getLastEvent() {
-        // ...
-        return null;
+        if (!events.isEmpty()) {
+            return events.get(events.size() - 1);
+        } else {
+            return null;
+        }
     }
 
     // TODO: Return all events in order of insertion
     public List<T> getAllEvents() {
-        // ...
-        return null;
+        return new ArrayList<>(events);
     }
 
 	// Pre-defined classes
@@ -189,8 +138,7 @@ public class EventLogger<T> {
 	 // -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		// Logging a user login event
 		EventLogger<UserLogin> loginLogger = new EventLogger<>();
 		loginLogger.logEvent(new UserLogin("maria", "08:00"));
@@ -205,8 +153,7 @@ public class EventLogger<T> {
 		EventLogger<SystemError> errorLogger = new EventLogger<>();
 		errorLogger.logEvent(new SystemError("Timeout", 504));
 		System.out.println(errorLogger.getLastEvent());
-	}
-	 */
+	}*/
 	// Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
