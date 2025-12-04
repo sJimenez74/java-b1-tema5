@@ -45,87 +45,43 @@ import java.util.List;
  *   After clearing: 0
  *   Certificate{title='Java Backend', year=2022, issuer='Oracle'}
  *
- * ---
- *
- * Sistema d'emmagatzematge de documents per a candidats (RRHH)
- * ------------------------------------------------------------
- * Una empresa de recursos humans vol crear un sistema per emmagatzemar diferents tipus
- * de dades associades als seus candidats. El sistema ha d'utilitzar una interfície genèrica
- * anomenada Storable<T> que defineixi les operacions bàsiques d'emmagatzematge.
- *
- * Els documents a emmagatzemar poden ser:
- * - Currículums (CV): nom del candidat, correu electrònic i contingut.
- * - Certificats (Certificate): nom del curs, any i organisme emissor.
- *
- * Cal implementar una classe ListStorage<T> que faci servir una llista interna per
- * emmagatzemar els objectes i que implementi la interfície Storable<T>.
- *
- * MÈTODES A IMPLEMENTAR A LA INTERFÍCIE:
- * --------------------------------------
- * interface Storable<T> {
- *     void save(T item);              // Desa un nou element
- *     T get(int index);               // Retorna l'element per la seva posició
- *     List<T> getAll();               // Retorna tots els elements
- *     int count();                    // Retorna el nombre total d'elements
- *     void clear();                   // Elimina tots els elements emmagatzemats
- * }
- *
- * EXEMPLE:
- * --------
- * Entrada:
- *   save(new CV("Ana Pérez", "ana@example.com", "Computer engineer..."))
- *   save(new CV("Luis Gómez", "luis@example.com", "Backend developer..."))
- *   get(0)
- *   getAll()
- *   count()
- *   clear()
- *   count()
- *   save(new Certificate("Java Backend", 2022, "Oracle"))
- *   getAll()
- *
- * Sortida (en anglès):
- *   CV{name='Ana Pérez', email='ana@example.com', content='Computer engineer...'}
- *   CV{name='Ana Pérez', email='ana@example.com', content='Computer engineer...'}, CV{name='Luis Gómez', email='luis@example.com', content='Backend developer...'}
- *   Stored CVs: 2
- *   After clearing: 0
- *   Certificate{title='Java Backend', year=2022, issuer='Oracle'}
  */
 
 
-public class ListStorage<T> implements Storable<T> {
+public class ListStorageStudent<T> implements Storable<T> {
 
     private List<T> items;
 
     public ListStorageStudent() {
-        // TODO: initialize internal list
+        items = new ArrayList<>();
     }
 
     @Override
     public void save(T item) {
         // TODO: store item
+        items.add(item);
     }
 
     @Override
     public T get(int index) {
         // TODO: return item by index
-        
+        return items.get(index);
     }
 
     @Override
     public List<T> getAll() {
         // TODO: return all items
-        
+        return new ArrayList<>(items);
     }
 
     @Override
     public int count() {
-        // TODO: return number of items
-        
+        return items.size();
     }
 
     @Override
     public void clear() {
-        // TODO: remove all stored items
+        items.clear();
     }
 
     public static class CV {
@@ -189,8 +145,7 @@ public class ListStorage<T> implements Storable<T> {
     // -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         Storable<CV> cvStorage = new ListStorageStudent<>();
         cvStorage.save(new CV("Ana Pérez", "ana@example.com", "Computer engineer..."));
         cvStorage.save(new CV("Luis Gómez", "luis@example.com", "Backend developer..."));
@@ -205,8 +160,7 @@ public class ListStorage<T> implements Storable<T> {
         Storable<Certificate> certStorage = new ListStorageStudent<>();
         certStorage.save(new Certificate("Java Backend", 2022, "Oracle"));
         System.out.println(certStorage.getAll());
-    }
-   */
+    }*/
 	// Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
