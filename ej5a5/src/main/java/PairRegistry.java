@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,81 +40,56 @@ import java.util.List;
  * // Shoes - 30
  * // Total sold: 65
  * // Shirt sales: 20
- *
- * ---
- *
- * Registre genèric de dades (nom + xifra)
- * ---------------------------------------
- * Es vol implementar un sistema que permeti associar un nom (per exemple, d’una persona o producte) amb una xifra numèrica (per exemple, unitats venudes, puntuació, ingressos...).
- *
- * Per això cal:
- * 1. Crear una classe Pair<T, U> que emmagatzemi dos valors relacionats: un de tipus T (nom), i un altre de tipus U (xifra).
- * 2. Crear una classe PairRegistry<T, U> que contingui una llista d’objectes Pair<T, U> i permeti les operacions següents:
- *
- * - void addPair(T first, U second)
- *     → Afegeix una nova parella (nom + xifra) al registre.
- *
- * - void printAll()
- *     → Mostra totes les parelles emmagatzemades en format: nom - xifra.
- *
- * - U getValueByKey(T key)
- *     → Retorna la xifra associada al nom indicat. Si no existeix, retorna null.
- *
- * - U sumValues()
- *     → Retorna la suma total de totes les xifres. Només funciona si U és Integer.
- *
- * EXEMPLE:
- * --------
- * PairRegistry<String, Integer> sales = new PairRegistry<>();
- * sales.addPair("Shirt", 20);
- * sales.addPair("Trousers", 15);
- * sales.addPair("Shoes", 30);
- *
- * sales.printAll();
- * System.out.println("Total sold: " + sales.sumValues());
- * System.out.println("Shirt sales: " + sales.getValueByKey("Shirt"));
- *
- * // Sortida esperada:
- * // Shirt - 20
- * // Trousers - 15
- * // Shoes - 30
- * // Total sold: 65
- * // Shirt sales: 20
  */
 
 public class PairRegistry<T, U> {
 
     // TODO: create a list to store Pair<T, U> objects
+    List<Pair<T, U>> list;
 
     public PairRegistry() {
         // TODO: initialize the list
+        list = new ArrayList<>();
     }
 
     // TODO: add a new Pair<T, U> to the list
     public void addPair(T first, U second) {
-        
+        list.add(new Pair<>(first, second));
     }
 
     // TODO: print all pairs in the format: name - value
     public void printAll() {
-        
+        for (Pair<T, U> pair : list) {
+            System.out.println(pair.getFirst() + " - " + pair.getSecond());
+        }
     }
 
     // TODO: find the value associated with the given key
     public U getValueByKey(T key) {
+        for (Pair<T, U> pair : list) {
+            if (pair.getFirst().equals(key)) {
+                return pair.getSecond();
+            }
+        }
         return null;
     }
 
     // TODO: return the total sum if U is Integer, otherwise return null
-    public U sumValues() {
-        return null;
+    public Number sumValues() {
+        int sum = 0;
+        for (Pair<T, U> pair : list) {
+            if (pair.getSecond() instanceof Number number) {
+                sum += number.intValue();
+            }
+        }
+
+        return sum;
     }
 
     // -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         PairRegistry<String, Integer> sales = new PairRegistry<>();
         sales.addPair("Shirt", 20);
         sales.addPair("Trousers", 15);
@@ -122,8 +98,7 @@ public class PairRegistry<T, U> {
         sales.printAll();
         System.out.println("Total sold: " + sales.sumValues());
         System.out.println("Shirt sales: " + sales.getValueByKey("Shirt"));
-    }
-    */
+    }*/
     // Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
